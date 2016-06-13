@@ -1,0 +1,21 @@
+{
+  "pyfrc": {
+    "robot": {
+      "w": 2,
+      "h": 3,
+      "starting_x": 20,
+      "starting_y": 20,
+      "starting_angle": 0
+    },
+    "field": {
+      "w": 40,
+      "h": 25,
+      "px_per_ft": 10,
+
+      "objects": [
+      	{ "color": "grey",
+      	  "points": [ [7.25,11.21], [10.333,11.21], [10.333,27], [7.25,27] ] }
+      ]
+    }
+  }
+}
