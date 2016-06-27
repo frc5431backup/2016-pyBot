@@ -4,7 +4,7 @@ import wpilib
 from magicbot import MagicRobot
 from components.drive_base import DriveBase
 from components.shooter import Shooter
-from controls.xbox import XboxController
+from controls.xbox import XboxControllered
 from controls.joystick import JoystickController
 from logging import getLogger
 from smater_dashboard.dashboard import DashBoard
@@ -49,7 +49,7 @@ class Robot(MagicRobot):
         """
         self.logger = getLogger("robot")
         self.dashboard = DashBoard()
-        self.xbox = XboxController()
+        self.xbox = XboxControllered()
         self.shootstick = JoystickController()
         self.test_joy = wpilib.Joystick(3)
         self.manual_toggle = Toggler()
@@ -57,6 +57,7 @@ class Robot(MagicRobot):
         self.intake_rev_toggle = Toggler()
 
         self.is_auto_aim = False
+        self.is_drivable = False
         self.update_period_millis = 100
         self.prev_time = time()
 
@@ -105,13 +106,14 @@ class Robot(MagicRobot):
         except:
             self.onException()
 
-        # Drive the robot drivebase
+        # Drivebase update
         try:
             left_power = float(self.xbox.get_left_axis())
             right_power = float(self.xbox.get_right_axis())
             self.drive_base.drive(left_power, right_power)
-            self.dashboard.drive_base(left_power, right_power)
-        except:  # Keep going and print errors to dashboard
+            if self.update_dash_period():
+                self.dashboard.drive_base(left_power, right_power)
+        except:
             self.onException()
 
         # Shooting of the shooter (Amazing wording)

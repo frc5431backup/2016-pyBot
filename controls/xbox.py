@@ -6,7 +6,7 @@ But try to place all gets in here and not hard coded in another method
 
 Team 5431 - Titan Robotics
 """
-from wpilib.joystick import Joystick
+from robotpy_ext.control.xbox_controller import XboxController
 from maps import xbox_map
 
 '''
@@ -14,7 +14,7 @@ Main controller class (Joystick super class)
 '''
 
 
-class XboxController(Joystick):
+class XboxControllered(XboxController):
     """
     Init the super class with the xbox joystick Id which
     is located in the xbox_map python file configuration
@@ -29,7 +29,7 @@ class XboxController(Joystick):
         :type dead: float
         :returns: Returns a dead banded float between -1 and 1 from axis
         """
-        raw = float(self.getRawAxis(xbox_map.left_axis_num))
+        raw = float(self.getLeftY())
         return 0.0 if -dead > raw > dead else raw
 
     def get_right_axis(self, dead=xbox_map.dead_zone):
@@ -38,7 +38,7 @@ class XboxController(Joystick):
          :type dead: float
          :returns: Returns a dead banded float between -1 and 1 from axis
          """
-        raw = float(self.getRawAxis(xbox_map.right_axis_num))
+        raw = float(self.getRightY())
         return 0.0 if -dead > raw > dead else raw
 
     def get_is_intake(self):
@@ -46,11 +46,11 @@ class XboxController(Joystick):
         Gets button press of intake option (Normal)
         :returns: Returns a boolean if button is pressed
         """
-        return bool(self.getRawButton(xbox_map.intake_on))
+        return bool(self.getLeftTrigger() > 0.3)
 
     def get_is_rev_intake(self):
         """
         Gets button press of intake option (Reversed)
         :returns: Returns a boolean if button is pressed
         """
-        return bool(self.getRawButton(xbox_map.intake_rev))
+        return bool(self.getRightTrigger() > 0.3)

@@ -1,22 +1,16 @@
-from pyfrc.physics import drivetrains
+from pyfrc.physics import drivetrains, core
+from pyfrc.sim.field import robot_element, elements
+from pyfrc.sim.ui import tsrxc
 
 
 class PhysicsEngine(object):
     def __init__(self, physics_controller):
         self.physics_controller = physics_controller
-        #self.physics_controller.add_analog_gyro_channel(1)
-
+        a = elements.CompositeElement()
+        a.move(2)
+        # self.physics_controller.add_analog_gyro_channel(1)
 
     def update_sim(self, hal_data, now, tm_diff):
-        '''
-            Called when the simulation parameters for the program need to be
-            updated.
-
-            :param now: The current time as a float
-            :param tm_diff: The amount of time that has passed since the last
-                            time that this function was called
-        '''
-
         lr_motor = hal_data['CAN'][1]['value']
         rr_motor = hal_data['CAN'][2]['value']
         lf_motor = hal_data['CAN'][3]['value']

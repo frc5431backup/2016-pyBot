@@ -7,6 +7,8 @@ class Choppers:
 
     def __init__(self):
         self.chopper_motor = CANTalon(motor_map.chopper_motor)
+        self.chopper_motor.setSafetyEnabled(False)
+        self.chopper_motor.enableLimitSwitch(True, True)
 
     def choppers_up(self):
         self.chopper_motor.set(1)
