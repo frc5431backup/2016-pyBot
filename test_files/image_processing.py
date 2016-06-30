@@ -203,6 +203,7 @@ cv2.setTrackbarPos("U2", "image_calibration", greenish[1][2])
 cv2.setTrackbarPos("CANL", "image_calibration", canny[0])
 cv2.setTrackbarPos("CANU", "image_calibration", canny[1])
 cv2.setTrackbarPos("blur", "image_calibration", med_blur)
+# noinspection PyRedeclaration
 load = True
 cv2.waitKey(0)
 cv2.destroyAllWindows()
